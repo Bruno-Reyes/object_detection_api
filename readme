@@ -1,0 +1,25 @@
+# Clonar el repositorio
+
+git clone --q https://github.com/tensorflow/models.git
+
+# Entrar a la siguiente carpeta
+models/research
+
+# Instalar los protoc buffs 
+https://github.com/protocolbuffers/protobuf/releases/download/v26.1/protoc-26.1-linux-x86_64.zip
+unzip protoc-25.1-linux-x86_64.zip -d $HOME/.local
+export PATH="$PATH:$HOME/.local/bin"
+
+# Compile protos.
+protoc object_detection/protos/*.proto --python_out=.
+
+# Instalar TensorFlow Object Detection API.
+cp object_detection/packages/tf2/setup.py .
+python -m pip install .
+
+# Instalar la version de Tensorflow especifica
+pip install tensorflow==2.13.0
+
+# Comprobar la instalacion 
+python object_detection/builders/model_builder_tf2_test.py
+
